@@ -1,0 +1,134 @@
+<div className="col-xs-12">
+    <div className="box box-info">
+        <div className="box-header with-border">
+            <h3 className="box-title">Search Form</h3>
+        </div>
+        <form onSubmit={this.onSubmitSearch}>
+            <div className="box-body">
+                <div className="row">
+                    <div className="col-xs-12 col-sm-6 col-md-3">
+                        <div className="form-group">
+                            <label className="control-label">Customer Name</label>
+                            <input className="form-control" name="name" placeholder="Customer Name" onChange={this.onChange} />
+                        </div>
+                    </div>
+                    <div className="col-xs-12 col-sm-6 col-md-3">
+                        <div className="form-group">
+                            <label className="control-label">Phone</label>
+                            <NumberFormat className="form-control" placeholder="Phone" maxLength="15" fixedDecimalScale={true} allowNegative={false} renderText={value => <div>{value}</div>} onValueChange={this.onValuePhoneNumber} />
+                        </div>
+                    </div>
+                    <div className="col-xs-12 col-sm-6 col-md-3">
+                        <div className="form-group">
+                            <label className="control-label">Email</label>
+                            <input className="form-control" name="email" placeholder="Email" onChange={this.onChange} />
+                        </div>
+                    </div>
+                    <div className="col-xs-12 col-sm-6 col-md-3">
+                        <div className="form-group">
+                            <label className="control-label">Address</label>
+                            <input className="form-control" name="address" placeholder="Address" onChange={this.onChange} />
+                        </div>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-xs-12 col-sm-6 col-md-3">
+                        <div className="form-group">
+                            <label className="control-label">Country</label>
+                            <Select
+                                    classNamePrefix="select"
+                                    isClearable
+                                    value={selectCountry.value}
+                                    onChange={this.handleChangeCountry}
+                                    options={listCountry}
+                            />
+                        </div>
+                    </div>
+                    <div className="col-xs-12 col-sm-6 col-md-3">
+                        <div className="form-group">
+                            <label className="control-label">Province</label>
+                            <Select
+                                    classNamePrefix="select"
+                                    isClearable
+                                    value={selectProvince.value}
+                                    onChange={this.handleChangeProvince}
+                                    options={listProvince}
+                            />
+                        </div>
+                    </div>
+                    <div className="col-xs-12 col-sm-6 col-md-3">
+                        <div className="form-group">
+                            <label className="control-label">District</label>
+                            <Select
+                                    classNamePrefix="select"
+                                    isClearable
+                                    value={selectDistrict.value}
+                                    onChange={this.handleChangeDistrict}
+                                    options={listDistrict}
+                            />
+                        </div>
+                    </div>
+                    <div className="col-xs-12 col-sm-6 col-md-3">
+                        <div className="form-group">
+                            <label className="control-label">Zip Code</label>
+                            <input className="form-control" name="zip_code" placeholder="Zip Code" onChange={this.onChange} />
+                        </div>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-xs-12 col-sm-6 col-md-3">
+                        <div className="form-group">
+                            <label className="control-label">Account Bank Number</label>
+                            <NumberFormat className="form-control" placeholder="Account Bank Number" format="#### #### #### ####" mask=" " renderText={value => <div>{value}</div>} onValueChange={this.onValueAccountBankNumber} />
+                        </div>
+                    </div>
+                    <div className="col-xs-12 col-sm-6 col-md-3">
+                        <div className="form-group">
+                            <label className="control-label">Bank Name</label>
+                            <input type="text" className="form-control" onChange={this.onChange} name="bank_name" placeholder="Bank Name"/>
+                        </div>
+                    </div>
+                    <div className="col-xs-12 col-sm-6 col-md-3">
+                        <div className="form-group">
+                            <label className="control-label">Account Name</label>
+                            <input type="text" className="form-control" onChange={this.onChange} name="account_name" placeholder="Account Name" />
+                        </div>
+                    </div>
+                    <div className="col-xs-12 col-sm-6 col-md-3">
+                        <div className="form-group">
+                            <label className="control-label">Billing Address</label>
+                            <input className="form-control" name="billing_address" placeholder="Billing Address" onChange={this.onChange} />
+                        </div>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-xs-12 col-sm-6 col-md-3">
+                        <div className="form-group">
+                            <label className="control-label">ITL Customer Code</label>
+                            <input type="text" className="form-control" onChange={this.onChange} name="bank_name" placeholder="ITL Customer Code"/>
+                        </div>
+                    </div>
+                    <div className="col-xs-12 col-sm-6 col-md-3">
+                        <div className="form-group">
+                            <label className="control-label">ITL Account Number</label>
+                            <NumberFormat className="form-control" placeholder="ITL Account Number" format="#### #### #### ####" mask=" " renderText={value => <div>{value}</div>} onValueChange={this.onValueITLAccountNumber} />
+                        </div>
+                    </div>
+                    <div className="col-xs-12 col-sm-6 col-md-3">
+                        <div className="form-group">
+                            <label className="control-label">Company Name</label>
+                            <input type="text" className="form-control" onChange={this.onChange} name="company_name" placeholder="Company Name" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="box-footer">
+                <div className="row">
+                    <div className="col-xs-12 text-right">
+                        <button type="submit" className="btn btn-info">Search</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

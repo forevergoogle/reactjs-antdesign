@@ -1,0 +1,33 @@
+{
+    "presets": [
+        "babel-preset-env",
+        "react",
+        "babel-preset-stage-2",
+        "es2015",
+        "stage-0"
+    ],
+    "plugins": [
+        [
+            "import",
+            {
+                "libraryName": "antd",
+                "style": true, // or 'css'
+            }
+        ],
+        [
+            "import",
+            {
+                "libraryName": "lodash",
+                "libraryDirectory": "",
+                "camel2DashComponentName": false, // default: true
+            }
+        ],
+        [
+            "import",
+            {
+                "libraryName": "react-intl",
+                "libraryDirectory": "./i18n-messages",
+            }
+        ]
+    ]
+}

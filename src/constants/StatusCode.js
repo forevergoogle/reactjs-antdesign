@@ -1,0 +1,21 @@
+// 200 => 'OK'
+export const STATUS_200 = 200;
+// 201 => 'Created'
+export const STATUS_201 = 201;
+// 202 => 'Accepted'
+export const STATUS_202 = 202;
+// 203 => 'Non-Authoritative Information'
+export const STATUS_203 = 203;
+// 204 => 'No Content'
+export const STATUS_204 = 204;
+// 205 => 'Reset Content'
+export const STATUS_205 = 205;
+// 206 => 'Partial Content'
+export const STATUS_206 = 206;
+// 207 => 'Multi-status'
+export const STATUS_207 = 207;
+// 208 => 'Already Reported'
+export const STATUS_208 = 208;
+// 226 => 'IM Used'
+export const STATUS_226 = 226;
+

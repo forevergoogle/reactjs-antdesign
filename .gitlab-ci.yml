@@ -1,0 +1,93 @@
+# image: node:latest
+image: node:10.17.0-stretch
+
+cache:
+  paths:
+    - node_modules
+
+stages:
+  - deploy
+
+deploy_test:
+  stage: deploy
+  environment: test
+  before_script:
+    - apt-get update -qq && apt-get install -y -qq sshpass ssh-askpass rsync openssh-server
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - mkdir -p ~/.ssh
+    - eval $(ssh-agent -s)
+    - echo "$TEST_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh/id_rsa
+    - echo "exec cat" > ap-cat.sh
+    - chmod a+x ap-cat.sh
+    - export DISPLAY=1
+    - echo "$TEST_PASSPHRASE" | SSH_ASKPASS=./ap-cat.sh ssh-add ~/.ssh/id_rsa 
+    - rm ap-cat.sh
+    
+  script:
+    - npm install
+    - npm run build
+    - cp -R ./public/ ./dist/public/ 
+    - cp favicon.ico ./dist/
+    - cp ./build/.htaccess ./dist/
+    - rsync -az --no-perms --omit-dir-times -e 'ssh -o StrictHostKeyChecking=no -p 22' --delete ./dist/ $TEST_USER@$TEST_HOST:/$TEST_SRC
+
+  only:
+    refs:
+      - master
+
+deploy_staging:
+  stage: deploy
+  environment: staging
+  before_script:
+    - apt-get update -qq && apt-get install -y -qq sshpass ssh-askpass rsync openssh-server
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - mkdir -p ~/.ssh
+    - eval $(ssh-agent -s)
+    - echo "$STAGING_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh/id_rsa
+    - echo "exec cat" > ap-cat.sh
+    - chmod a+x ap-cat.sh
+    - export DISPLAY=1
+    - echo "$STAGING_PASSPHRASE" | SSH_ASKPASS=./ap-cat.sh ssh-add ~/.ssh/id_rsa 
+    - rm ap-cat.sh
+    
+  script:
+    - npm install
+    - npm run build
+    - cp -R ./public/ ./dist/public/
+    - cp favicon.ico ./dist/
+    - cp ./build/.htaccess ./dist/
+    - rsync -az --no-perms --omit-dir-times -e 'ssh -o StrictHostKeyChecking=no -p 22' --delete ./dist/ $STAGING_USER@$STAGING_HOST:/$STAGING_SRC
+
+  only:
+    refs:
+      - staging
+      
+deploy_production:
+  stage: deploy
+  environment: production
+  before_script:
+    - apt-get update -qq && apt-get install -y -qq sshpass ssh-askpass rsync openssh-server
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - mkdir -p ~/.ssh
+    - eval $(ssh-agent -s)
+    - echo "$PRODUCTION_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh/id_rsa
+    - echo "exec cat" > ap-cat.sh
+    - chmod a+x ap-cat.sh
+    - export DISPLAY=1
+    - echo "$PRODUCTION_PASSPHRASE" | SSH_ASKPASS=./ap-cat.sh ssh-add ~/.ssh/id_rsa 
+    - rm ap-cat.sh
+    
+  script:
+    - npm install
+    - npm run build
+    - cp -R ./public/ ./dist/public/
+    - cp favicon.ico ./dist/
+    - cp ./build/.htaccess ./dist/
+    - rsync -az --no-perms --omit-dir-times -e 'ssh -o StrictHostKeyChecking=no -p 22' --delete ./dist/ $PRODUCTION_USER@$PRODUCTION_HOST:/$PRODUCTION_SRC
+
+  only:
+    refs:
+      - production
